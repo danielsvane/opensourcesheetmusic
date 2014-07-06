@@ -1,0 +1,9 @@
+{
+  "packages": {
+    "bootstrap-3": {},
+    "iron-router": {},
+    "autoform": {},
+    "iron-router-active": {},
+    "accounts-ui-bootstrap-3": {}
+  }
+}
