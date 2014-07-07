@@ -19,8 +19,4 @@
       type: String
       autoValue: ->
         if @.isInsert
-          @.userId 
-
-Sheets.allow
-  remove: ->
-    true
+          @.userId

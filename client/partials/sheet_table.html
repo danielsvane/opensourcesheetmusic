@@ -1,11 +1,12 @@
 <template name="sheet_table">
+  <input class="form-control" type="search" name="search" id="search" placeholder="Search">
   <table class="table table-hover">
     <thead>
     <tr>
-      <th>Title</th>
-      <th>Artist</th>
-      <th>Starred</th>
-      <th>Date added</th>
+      <th><a data-sort="title" href="">Title</a></th>
+      <th><a data-sort="artist" href="">Artist</a></th>
+      <th><a data-sort="stars" href="">Starred</a></th>
+      <th><a data-sort="created" href="">Date added</a></th>
       {{#if currentUser}}<th class="text-right coll-md-2">Action</th>{{/if}}
     </tr>
     </thead>

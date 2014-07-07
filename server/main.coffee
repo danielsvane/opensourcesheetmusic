@@ -10,7 +10,7 @@ Sheets.allow
   update: (userId, doc) ->
     userId
   remove: (userId, doc) ->
-    userId is doc.user
+    (userId is doc.user) or Roles.userIsInRole(userId, ["admin"])
 
 Meteor.publish "users", ->
   Meteor.users.find @.userId,
