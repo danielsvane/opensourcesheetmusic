@@ -19,7 +19,7 @@
       type: String
       autoValue: ->
         if @.isInsert
-          @.userId
+          @.userId 
 
 Sheets.allow
   remove: ->

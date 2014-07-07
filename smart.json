@@ -5,6 +5,8 @@
     "autoform": {},
     "iron-router-active": {},
     "accounts-ui-bootstrap-3": {},
-    "GAnalytics": {}
+    "GAnalytics": {},
+    "user-status": {},
+    "roles": {}
   }
 }

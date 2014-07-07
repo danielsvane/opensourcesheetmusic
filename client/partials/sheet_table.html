@@ -1,12 +1,12 @@
 <template name="sheet_table">
-  <table class="table table-striped table-hover">
+  <table class="table table-hover">
     <thead>
     <tr>
       <th>Title</th>
       <th>Artist</th>
       <th>Starred</th>
       <th>Date added</th>
-      {{#if currentUser}}<th class="text-right coll-md-1">Action</th>{{/if}}
+      {{#if currentUser}}<th class="text-right coll-md-2">Action</th>{{/if}}
     </tr>
     </thead>
     <tbody>
@@ -17,7 +17,7 @@
           <td>{{stars}}</td>
           <td>{{created}}</td>
           {{#if currentUser}}
-            <td class="text-right col-md-1">
+            <td class="text-right col-md-2">
               {{#if notCreatedByUser}}
                 {{#if starred}}
                   <button class="btn btn-warning btn-xs unstar">Unstar</button>
@@ -27,6 +27,10 @@
               {{/if}}
               {{#if isOwner}}
                 <button class="btn btn-danger btn-xs removeSheet">Delete</button>
+              {{else}}
+                {{#if isInRole 'admin'}}
+                  <button class="btn btn-danger btn-xs removeSheet">Delete</button>
+                {{/if}}
               {{/if}}
             </td>
           {{/if}}
