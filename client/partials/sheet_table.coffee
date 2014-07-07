@@ -15,7 +15,16 @@ Template.sheet_table.notCreatedByUser = ->
 
 Template.sheet_table.events
   "click .removeSheet": (event, template) ->
+    deletehash = Sheets.findOne(@._id).deletehash
     Sheets.remove @._id
+    $.ajax
+      url: "https://api.imgur.com/3/image/#{deletehash}"
+      headers:
+        'Authorization': 'Client-ID 9c666f6a3a7c76d'
+      cache: false
+      contentType: false
+      processData: false
+      type: "DELETE"
 
   "click .star": (event, template) ->
     Sheets.update @._id,

@@ -6,6 +6,8 @@
       type: String
     url:
       type: String
+    deletehash:
+      type: String
     created:
       type: String
       autoValue: ->

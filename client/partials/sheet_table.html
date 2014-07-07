@@ -4,7 +4,7 @@
     <tr>
       <th>Title</th>
       <th>Artist</th>
-      <th>Stars</th>
+      <th>Starred</th>
       <th>Date added</th>
       {{#if currentUser}}<th class="text-right coll-md-1">Action</th>{{/if}}
     </tr>
@@ -12,7 +12,7 @@
     <tbody>
       {{#each sheets}}
         <tr>
-          <td><a href="{{url}}">{{title}}</a></td>
+          <td><a href="{{url}}" target="_blank">{{title}}</a></td>
           <td>{{artist}}</td>
           <td>{{stars}}</td>
           <td>{{created}}</td>

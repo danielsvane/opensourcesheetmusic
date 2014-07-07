@@ -4,6 +4,7 @@
     "iron-router": {},
     "autoform": {},
     "iron-router-active": {},
-    "accounts-ui-bootstrap-3": {}
+    "accounts-ui-bootstrap-3": {},
+    "GAnalytics": {}
   }
 }

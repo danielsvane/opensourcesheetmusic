@@ -2,19 +2,15 @@
 
   <div class="row">
 
-    <div class="col-md-8">
-      {{> UI.dynamic template="sheet_table" data=sheets}}
-    </div>
-
     <div class="col-md-4">
       {{#autoForm collection="Sheets" id="insertSheetForm" type="insert"}}
-        {{> afQuickField name="title"}}
-        {{> afQuickField name="artist"}}
+        {{> afQuickField name="title" id="title"}}
+        {{> afQuickField name="artist" id="artist"}}
         <div class="form-group">
           <label>File</label>
           <div class="input-group">
             <span class="input-group-btn">
-              <span class="btn btn-default btn-file">
+              <span class="btn btn-default btn-file" id="browse">
                 Browse <input type="file" name="file" id="file">
               </span>
             </span>
@@ -23,6 +19,10 @@
         </div>
         <div class="btn btn-primary pull-right" id="submit">Upload</div>
       {{/autoForm}}
+    </div>
+
+    <div class="col-md-8">
+      {{> UI.dynamic template="sheet_table" data=sheets}}
     </div>
 
   </div>

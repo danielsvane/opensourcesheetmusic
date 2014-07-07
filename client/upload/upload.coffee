@@ -1,11 +1,13 @@
 file = ""
 url = ""
+deletehash = ""
 
 AutoForm.hooks
   insertSheetForm:
     before:
       insert: (doc, template) ->
         doc.url = url
+        doc.deletehash = deletehash
         doc
     endSubmit: ->
       Session.set "fileName", ""
@@ -19,6 +21,9 @@ Template.upload.sheets = ->
 Template.upload.fileName = ->
   Session.get "fileName"
 
+disableForm = (disable) ->
+  $("#insertSheetForm #title, #artist, #browse, #submit").prop("disabled", disable)
+
 Template.upload.events
   "change #file": (event, template) ->
     file = event.target.files[0]
@@ -27,7 +32,6 @@ Template.upload.events
   "click #submit": (event, template) ->
     formData = new FormData()
     formData.append "image", file
-    console.log formData
 
     $.ajax
       url: "https://api.imgur.com/3/upload"
@@ -40,5 +44,5 @@ Template.upload.events
       type: "POST"
       success: (data, textStatus, jqXHR) ->
         url = data.data.link
-        console.log url
+        deletehash = data.data.deletehash
         $("#insertSheetForm").submit()
