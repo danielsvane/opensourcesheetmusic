@@ -1,5 +1,7 @@
 Router.configure
   layoutTemplate: "layout"
+  load: ->
+    GAnalytics.pageview()
 
 mustBeSignedIn = (pause) ->
   if !Meteor.user()
