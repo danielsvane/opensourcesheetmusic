@@ -17,3 +17,8 @@
   cursor: inherit;
   display: block;
 }
+
+.bootstrap-tagsinput {
+  width: 100%;
+  margin-bottom: 0px;
+}

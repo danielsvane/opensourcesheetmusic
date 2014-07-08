@@ -1,4 +1,43 @@
+<template name="edit_sheet_modal">
+  <div class="modal" id="edit_sheet_modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Edit sheet</h4>
+        </div>
+
+        {{#autoForm collection="Sheets" doc=editingDoc id="editSheetForm" type="update"}}
+          <div class="modal-body">
+            {{> afQuickField name="title" id="title"}}
+            {{> afQuickField name="artist" id="artist"}}
+            {{> afQuickField name="difficulty" id="difficulty"}}
+            {{> afQuickField name="instruments" id="instruments"}}
+            {{> afQuickField name="genres" id="genres"}}
+          </div>
+            
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" id="close" data-dismiss="modal">Close</button>
+            <div class="btn btn-primary pull-right" id="submit">Update</div>
+          </div>
+
+        {{/autoForm}}
+
+        <div class="modal-body" id="loadingMessage">
+          <p class="text-center">Please wait...</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</template>
+
 <template name="sheet_table">
+
+  {{#if editSheetModal}}
+    {{> edit_sheet_modal}}
+  {{/if}}
+
   <input class="form-control" type="search" name="search" id="search" placeholder="Search">
   <table class="table table-hover">
     <thead>
@@ -6,8 +45,11 @@
       <th><a data-sort="title" href="">Title</a></th>
       <th><a data-sort="artist" href="">Artist</a></th>
       <th><a data-sort="stars" href="">Starred</a></th>
+      <th><a data-sort="difficulty" href="">Difficulty</a></th>
+      <th><a data-sort="instruments" href="">Instruments</a></th>
+      <th><a data-sort="instruments" href="">Genres</a></th>
       <th><a data-sort="created" href="">Date added</a></th>
-      {{#if currentUser}}<th class="text-right coll-md-2">Action</th>{{/if}}
+      {{#if currentUser}}<th class="text-right">Action</th>{{/if}}
     </tr>
     </thead>
     <tbody>
@@ -16,9 +58,12 @@
           <td><a href="{{url}}" target="_blank">{{title}}</a></td>
           <td>{{artist}}</td>
           <td>{{stars}}</td>
+          <td>{{difficulty}}/5</td>
+          <td>{{instruments}}</td>
+          <td>{{genres}}</td>
           <td>{{created}}</td>
           {{#if currentUser}}
-            <td class="text-right col-md-2">
+            <td class="text-right">
               {{#if notCreatedByUser}}
                 {{#if starred}}
                   <button class="btn btn-warning btn-xs unstar">Unstar</button>
@@ -27,9 +72,11 @@
                 {{/if}}
               {{/if}}
               {{#if isOwner}}
+                <button class="btn btn-warning btn-xs editSheet">Edit</button>
                 <button class="btn btn-danger btn-xs removeSheet">Delete</button>
               {{else}}
                 {{#if isInRole 'admin'}}
+                  <button class="btn btn-warning btn-xs editSheet">Edit</button>
                   <button class="btn btn-danger btn-xs removeSheet">Delete</button>
                 {{/if}}
               {{/if}}

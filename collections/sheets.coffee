@@ -4,6 +4,20 @@
       type: String
     artist:
       type: String
+    stars:
+      type: Number
+      defaultValue: 0
+    difficulty:
+      type: Number
+      min: 1
+      max: 5
+      defaultValue: 1
+    instruments:
+      type: String
+      optional: true
+    genres:
+      type: String
+      optional: true
     url:
       type: String
     deletehash:
@@ -12,9 +26,6 @@
       type: String
       autoValue: ->
         moment().format("DD-MM-YYYY")
-    stars:
-      type: Number
-      defaultValue: 0
     user:
       type: String
       autoValue: ->

@@ -12,6 +12,24 @@ Sheets.allow
   remove: (userId, doc) ->
     (userId is doc.user) or Roles.userIsInRole(userId, ["admin"])
 
+Meteor.publish null, ->
+  Instruments.find()
+
+Instruments.allow
+  insert: (userId, doc) ->
+    userId
+  update: (userId, doc) ->
+    userId
+
+Meteor.publish null, ->
+  Genres.find()
+
+Genres.allow
+  insert: (userId, doc) ->
+    userId
+  update: (userId, doc) ->
+    userId
+
 Meteor.publish "users", ->
   Meteor.users.find @.userId,
     fields:
