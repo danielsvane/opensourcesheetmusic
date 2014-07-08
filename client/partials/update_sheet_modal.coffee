@@ -7,8 +7,6 @@ AutoForm.hooks
     before:
       update: (id, docType, template) ->
         doc = docType.$set
-        doc.instruments = doc.instruments.replace(",", ", ")
-        doc.genres = doc.genres.replace(",", ", ")
         if file
           doc.url = url
           doc.deletehash = deletehash

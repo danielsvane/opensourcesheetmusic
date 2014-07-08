@@ -20,8 +20,6 @@ AutoForm.hooks
       insert: (doc, template) ->        
         doc.url = url
         doc.deletehash = deletehash
-        doc.instruments = doc.instruments.replace(",", ", ")
-        doc.genres = doc.genres.replace(",", ", ")
         doc
     after:
       insert: (doc, template) ->

@@ -59,7 +59,7 @@ substringMatcher = (strs) ->
   # Handle instruments and clear field
   tags = $("#instruments").tagsinput("items")
   for tag in tags
-    tag = tag.trim()
+    tag = tag
     console.log tag
     instrument = Instruments.findOne({name:tag})
     if instrument

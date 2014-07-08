@@ -13,7 +13,7 @@
       <th><a data-sort="stars" href="">Starred</a></th>
       <th><a data-sort="difficulty" href="">Difficulty</a></th>
       <th><a data-sort="instruments" href="">Instruments</a></th>
-      <th><a data-sort="instruments" href="">Genres</a></th>
+      <th><a data-sort="genres" href="">Genres</a></th>
       <th><a data-sort="created" href="">Date added</a></th>
       {{#if currentUser}}<th class="text-right">Action</th>{{/if}}
     </tr>
@@ -25,8 +25,8 @@
           <td>{{artist}}</td>
           <td>{{stars}}</td>
           <td>{{difficulty}}/5</td>
-          <td>{{instruments}}</td>
-          <td>{{genres}}</td>
+          <td>{{formatTags instruments}}</td>
+          <td>{{formatTags genres}}</td>
           <td>{{formatDate created}}</td>
           {{#if currentUser}}
             <td class="text-right">
