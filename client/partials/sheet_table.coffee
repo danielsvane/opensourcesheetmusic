@@ -1,85 +1,5 @@
-Template.sheet_table.editSheetModal = ->
-  Session.get "editSheetModal"
-
-Template.edit_sheet_modal.rendered = ->
-  showForm()
-  $("#edit_sheet_modal").modal("show")
-  $("#edit_sheet_modal").on "hidden.bs.modal", (e) ->
-    Session.set "editSheetModal", false
-
-  # function from typeahead.js example
-  substringMatcher = (strs) ->
-    findMatches = (q, cb) ->
-      matches = undefined
-      substringRegex = undefined
-      # an array that will be populated with substring matches
-      matches = []
-      # regex used to determine if a string contains the substring `q`
-      substrRegex = new RegExp(q, "i")
-      # iterate through the pool of strings and for any string that
-      # contains the substring `q`, add it to the `matches` array
-      $.each strs, (i, str) ->
-        # the typeahead jQuery plugin expects suggestions to a
-        # JavaScript object, refer to typeahead docs for more info
-        matches.push value: str  if substrRegex.test(str)
-      cb matches
-
-  tags = $("#instruments")
-  tags.tagsinput()
-  $(tags).each (i, o) ->
-    
-    # grab the input inside of tagsinput
-    taginput = $(o).tagsinput("input")
-    
-    # initialize typeahead for the tag input
-    taginput.typeahead(
-      hint: false
-      highlight: true
-      minLength: 1
-      autoselect: true
-    ,
-      name: "states"
-      displayKey: "value"
-      source: substringMatcher(Instruments.find().fetch().map (it) -> it.name)
-    ).bind "typeahead:selected", $.proxy((obj, datum) ->
-      # if the state is clicked, add it to tagsinput and clear input
-      $(o).tagsinput "add", datum.value
-      taginput.typeahead "val", ""
-    )
-  
-    # erase any entered text on blur
-    $(taginput).blur ->
-      taginput.typeahead "val", ""
-
-  genres = $("#genres")
-  genres.tagsinput()
-  $(genres).each (i, o) ->
-    
-    # grab the input inside of tagsinput
-    taginput = $(o).tagsinput("input")
-    
-    # initialize typeahead for the tag input
-    taginput.typeahead(
-      hint: false
-      highlight: true
-      minLength: 1
-      autoselect: true
-    ,
-      name: "states"
-      displayKey: "value"
-      source: substringMatcher(Genres.find().fetch().map (it) -> it.name)
-    ).bind "typeahead:selected", $.proxy((obj, datum) ->
-      # if the state is clicked, add it to tagsinput and clear input
-      $(o).tagsinput "add", datum.value
-      taginput.typeahead "val", ""
-    )
-  
-    # erase any entered text on blur
-    $(taginput).blur ->
-      taginput.typeahead "val", ""
-
-Template.edit_sheet_modal.editingDoc = ->
-  Sheets.findOne(Session.get("editingDoc"))
+Template.sheet_table.updateSheetModal = ->
+  Session.get "updateSheetModal"
 
 Template.sheet_table.sheets = ->
   filter =
@@ -165,27 +85,12 @@ handleTagFields = () ->
       Genres.insert
         name: tag
 
-AutoForm.hooks
-  editSheetForm:
-    before:
-      update: (id, docType, template) ->
-        doc = docType.$set
-        doc.instruments = doc.instruments.replace(",", ", ")
-        doc.genres = doc.genres.replace(",", ", ")
-        docType.$set = doc
-        docType
-    after:
-      update: (doc, template) ->
-        handleTagFields()
-        $("#edit_sheet_modal").modal("hide")
-        doc
-
-showLoading = () ->
-  $("#editSheetForm").hide()
+showLoadingMessage = () ->
+  $("#updateSheetForm").hide()
   $("#loadingMessage").show()
 
-showForm = () ->
-  $("#editSheetForm").show()
+hideLoadingMessage = () ->
+  $("#updateSheetForm").show()
   $("#loadingMessage").hide()
 
 Template.sheet_table.notCreatedByUser = ->
@@ -203,26 +108,14 @@ Template.sheet_table.events
       Session.set "sortBy", $(event.currentTarget).attr("data-sort")
 
   "click .editSheet": (event, template) ->
-    Session.set("editingDoc", @._id)
-    Session.set("editSheetModal", true)
-
-  "click #submit": (event, template) ->
-    showLoading()
-    $("#editSheetForm").submit()
+    console.log "Clicked sheet #{@._id} for editing"
+    Session.set("updatingDoc", @._id)
+    Session.set("updateSheetModal", true)
 
   "click .removeSheet": (event, template) ->
     deletehash = Sheets.findOne(@._id).deletehash
     Sheets.remove @._id
-    $.ajax
-      url: "https://api.imgur.com/3/image/#{deletehash}"
-      headers:
-        'Authorization': 'Client-ID 9c666f6a3a7c76d'
-      cache: false
-      contentType: false
-      processData: false
-      type: "DELETE"
-      success: (data, textStatus, jqXHR) ->
-        console.log textStatus
+    deleteFromImgur deletehash
 
   "click .star": (event, template) ->
     Sheets.update @._id,

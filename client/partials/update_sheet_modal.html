@@ -1,0 +1,46 @@
+<template name="update_sheet_modal">
+  <div class="modal" id="update_sheet_modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Update sheet</h4>
+        </div>
+
+        {{#autoForm collection="Sheets" doc=updatingDoc id="updateSheetForm" type="update"}}
+          <div class="modal-body">
+            {{> afQuickField name="title" id="title"}}
+            {{> afQuickField name="artist" id="artist"}}
+            {{> afQuickField name="difficulty" id="difficulty"}}
+            {{> afQuickField name="instruments" id="instruments"}}
+            {{> afQuickField name="genres" id="genres"}}
+
+            <div class="form-group">
+              <label>File</label>
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <span class="btn btn-default btn-file" id="browse">
+                    Browse <input type="file" accept="application/pdf,image/jpeg,image/gif,image/png,image/tiff,image/bmp" name="file" id="file">
+                  </span>
+                </span>
+                <input type="text" class="form-control" value="{{fileName}}" readonly>
+              </div>
+            </div>
+
+          </div>
+            
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" id="close" data-dismiss="modal">Close</button>
+            <div class="btn btn-primary pull-right" id="submit">Update</div>
+          </div>
+
+        {{/autoForm}}
+
+        <div class="modal-body" id="loadingMessage">
+          <p class="text-center">Please wait...</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</template>
