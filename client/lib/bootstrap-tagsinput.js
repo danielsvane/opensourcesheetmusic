@@ -13,7 +13,7 @@
     },
     freeInput: true,
     maxTags: undefined,
-    confirmKeys: [13, 9],
+    confirmKeys: [13, 9, 188],
     onTagExists: function(item, $tag) {
       $tag.hide().fadeIn();
     }
