@@ -54,3 +54,28 @@ substringMatcher = (strs) ->
     type: "DELETE"
     success: (data, textStatus, jqXHR) ->
       console.log textStatus
+
+@handleTagFields = () ->
+  # Handle instruments and clear field
+  tags = $("#instruments").tagsinput("items")
+  for tag in tags
+    instrument = Instruments.findOne({name:tag})
+    if instrument
+      Instruments.update instrument._id,
+        $inc:
+          weight: 1
+    else
+      Instruments.insert
+        name: tag
+
+  # Handle genres and clear field
+  genres = $("#genres").tagsinput("items")
+  for tag in genres
+    genre = Genres.findOne({name:tag})
+    if genre
+      Genres.update genre._id,
+        $inc:
+          weight: 1
+    else
+      Genres.insert
+        name: tag

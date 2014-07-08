@@ -16,8 +16,9 @@ AutoForm.hooks
         docType
     after:
       update: (doc, template) ->
-        $("#update_sheet_modal").modal("hide")
+        handleTagFields()
         Session.set "fileName", ""
+        $("#update_sheet_modal").modal("hide")
     onError: (operation) ->
       hideLoadingMessage()
 
