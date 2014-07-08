@@ -61,12 +61,12 @@
           <td>{{difficulty}}/5</td>
           <td>{{instruments}}</td>
           <td>{{genres}}</td>
-          <td>{{created}}</td>
+          <td>{{formatDate created}}</td>
           {{#if currentUser}}
             <td class="text-right">
               {{#if notCreatedByUser}}
                 {{#if starred}}
-                  <button class="btn btn-warning btn-xs unstar">Unstar</button>
+                  <button class="btn btn-info btn-xs unstar">Unstar</button>
                 {{else}}
                   <button class="btn btn-default btn-xs star">Star</button>
                 {{/if}}

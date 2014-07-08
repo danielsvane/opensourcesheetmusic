@@ -23,9 +23,9 @@
     deletehash:
       type: String
     created:
-      type: String
+      type: Number
       autoValue: ->
-        moment().format("DD-MM-YYYY")
+        moment().unix()
     user:
       type: String
       autoValue: ->
