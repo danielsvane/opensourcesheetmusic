@@ -17,7 +17,7 @@ Template.new_sheet_modal.rendered = ->
 AutoForm.hooks
   insertSheetForm:
     before:
-      insert: (doc, template) ->        
+      insert: (doc, template) ->
         doc.url = url
         doc.deletehash = deletehash
         doc
