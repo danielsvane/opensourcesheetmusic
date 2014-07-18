@@ -49,8 +49,8 @@
       },
       "autoform": {
         "git": "https://github.com/aldeed/meteor-autoform.git",
-        "tag": "v0.15.0",
-        "commit": "ac564b091dc52250022193e437037c5eaac997a0"
+        "tag": "v0.15.1",
+        "commit": "723aed684ef9d16e94424cde6389b8e4a03d546e"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",

@@ -20,10 +20,8 @@
       optional: true
     url:
       type: String
-      optional: true
     deletehash:
       type: String
-      optional: true
     created:
       type: Number
       autoValue: ->
