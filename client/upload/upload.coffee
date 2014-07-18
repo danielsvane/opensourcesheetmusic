@@ -1,6 +1,23 @@
 file = ""
-url = ""
-deletehash = ""
+
+upload = (promise, doc, file) ->
+  formData = new FormData()
+  formData.append "image", file
+
+  $.ajax
+    url: "https://api.imgur.com/3/upload"
+    headers:
+      'Authorization': 'Client-ID 9c666f6a3a7c76d'
+    data: formData
+    cache: false
+    contentType: false
+    processData: false
+    type: "POST"
+    success: (data, textStatus, jqXHR) ->
+      doc.url = data.data.link
+      doc.deletehash = data.data.deletehash
+      promise.result doc
+      console.log promise
 
 Template.upload.newSheetModal = ->
   Session.get "newSheetModal"
@@ -18,9 +35,8 @@ AutoForm.hooks
   insertSheetForm:
     before:
       insert: (doc, template) ->
-        doc.url = url
-        doc.deletehash = deletehash
-        doc
+        upload @, doc, file
+        return
     after:
       insert: (doc, template) ->
         handleTagFields()
@@ -51,23 +67,3 @@ Template.upload.events
   "change #file": (event, template) ->
     file = event.target.files[0]
     Session.set "fileName", file.name
-
-  "click #submit": (event, template) ->
-    showLoading()
-
-    formData = new FormData()
-    formData.append "image", file
-
-    $.ajax
-      url: "https://api.imgur.com/3/upload"
-      headers:
-        'Authorization': 'Client-ID 9c666f6a3a7c76d'
-      data: formData
-      cache: false
-      contentType: false
-      processData: false
-      type: "POST"
-      success: (data, textStatus, jqXHR) ->
-        url = data.data.link
-        deletehash = data.data.deletehash
-        $("#insertSheetForm").submit()
